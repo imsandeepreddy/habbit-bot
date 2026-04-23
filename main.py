@@ -172,7 +172,7 @@ async def cmd_done(message: Message):
 # Startup / shutdown hooks
 # ---------------------------------------------------------------------------
 async def on_startup(bot: Bot):
-    await bot.delete_webhook()
+    await bot.delete_webhook(drop_pending_updates=True)
     await bot.set_webhook(WEBHOOK_URL)
     logger.info(f"Webhook set to {WEBHOOK_URL}")
     start_scheduler(bot)
