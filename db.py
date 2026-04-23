@@ -4,7 +4,7 @@ db.py — all Supabase interactions for the habit bot.
 journal_entries : existing table  (bot writes goal entries here)
 reminders       : new table       (bot owns this entirely)
 """
-
+import os
 import logging
 from datetime import date, datetime
 from uuid import UUID
@@ -14,8 +14,8 @@ from supabase import create_client, Client
 # ---------------------------------------------------------------------------
 # Config — replace with your actual values or load from .env
 # ---------------------------------------------------------------------------
-SUPABASE_URL = "https://your-project.supabase.co"
-SUPABASE_KEY = "your-service-role-key"          # use service role for server-side
+SUPABASE_URL = os.getenv("SUPABASE_URL)
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")        # use service role for server-side
 
 logger = logging.getLogger(__name__)
 
