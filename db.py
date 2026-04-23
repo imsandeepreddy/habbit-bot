@@ -68,31 +68,41 @@ async def save_goal(chat_id: int, goal_text: str, remind_at: str) -> str | None:
 # Joins reminders → journal_entries
 # ---------------------------------------------------------------------------
 async def get_active_goals(chat_id: int) -> list[dict]:
-    """
-    Returns list of dicts with keys: id, text, remind_at
-    """
     try:
+        # Step 1: get reminder rows for this chat_id
         resp = (
             _supabase.table("reminders")
-            .select("journal_entry_id, remind_at, journal_entries(id, text)")
+            .select("journal_entry_id, remind_at")
             .eq("chat_id", chat_id)
             .eq("is_active", True)
             .execute()
         )
+        print(f"reminders for {chat_id}: {resp.data}")
 
+        if not resp.data:
+            return []
+
+        # Step 2: fetch each journal entry separately
         goals = []
         for row in resp.data:
-            entry = row.get("journal_entries")
-            if entry:
+            entry_resp = (
+                _supabase.table("journal_entries")
+                .select("id, text")
+                .eq("id", row["journal_entry_id"])
+                .execute()
+            )
+            print(f"entry lookup: {entry_resp.data}")
+            if entry_resp.data:
                 goals.append({
-                    "id": entry["id"],
-                    "text": entry["text"],
+                    "id": entry_resp.data[0]["id"],
+                    "text": entry_resp.data[0]["text"],
                     "remind_at": row["remind_at"],
                 })
+
         return goals
 
     except Exception as e:
-        logger.error(f"get_active_goals error: {e}")
+        print(f"get_active_goals error: {e}")
         return []
 
 
