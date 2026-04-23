@@ -14,7 +14,7 @@ from supabase import create_client, Client
 # ---------------------------------------------------------------------------
 # Config — replace with your actual values or load from .env
 # ---------------------------------------------------------------------------
-SUPABASE_URL = os.getenv("SUPABASE_URL)
+SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")        # use service role for server-side
 
 logger = logging.getLogger(__name__)
