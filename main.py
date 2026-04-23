@@ -121,7 +121,8 @@ async def cmd_mygoals(message: Message):
     lines = ["📋 *Your active goals:*\n"]
     for i, g in enumerate(goals, 1):
         status = "✅" if g["id"] in done_ids else "⬜"
-        lines.append(f"{status} *{i}.* {g['text']}  _(remind at {g['remind_at']})_")
+        remind_time = g['remind_at'][:5]  # "19:36:00" → "19:36"
+        lines.append(f"{status} *{i}.* {g['text']}  _(remind at {remind_time})_")
 
     await message.answer("\n".join(lines), parse_mode="Markdown")
 
