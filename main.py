@@ -21,7 +21,7 @@ from scheduler import start_scheduler
 # Config — replace with your actual values or load from .env
 # ---------------------------------------------------------------------------
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-WEBHOOK_HOST = "https://your-domain.com"   # e.g. your Railway / Render URL
+WEBHOOK_HOST = "https://habbit-bot.onrender.com"   # e.g. your Railway / Render URL
 WEBHOOK_PATH = "/webhook"
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 WEB_SERVER_HOST = "0.0.0.0"
